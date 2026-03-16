@@ -13,8 +13,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Arushi Bhatia | A Moment of Calm",
-  description: "A beautiful animated experience dedicated to Arushi Bhatia.",
+  title: "Arushi | A Moment of Calm",
+  description: "A beautiful animated experience dedicated to Arushi.",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${inter.variable} font-sans antialiased bg-[#000000]`}>
+      <body className={`antialiased bg-black text-white`} style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }}>
         {children}
       </body>
     </html>

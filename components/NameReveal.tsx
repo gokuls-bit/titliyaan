@@ -42,13 +42,13 @@ export default function NameReveal({ show, onButtonClick }: NameRevealProps) {
                 duration: 2,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-7xl md:text-9xl font-serif font-black tracking-widest mb-6 px-4"
+              className="text-7xl md:text-9xl font-bold tracking-widest mb-6 px-4"
               style={{
-                fontFamily: "'Playfair Display', serif",
-                background: "linear-gradient(to bottom, #ffffff, #888888)",
+                fontFamily: 'Georgia, "Times New Roman", Times, serif',
+                background: "linear-gradient(to bottom, #ffffff, #a5a5a5)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                filter: "drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))",
+                filter: "drop-shadow(0 0 30px rgba(255, 255, 255, 0.3))",
               }}
             >
               Arushi 🤍
