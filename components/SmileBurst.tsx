@@ -13,40 +13,39 @@ interface Particle {
   life: number;
 }
 
+const COLORS = ["#fbbf24", "#fcd34d", "#f59e0b", "#fb7185", "#c084fc"];
+
 export default function SmileBurst({ trigger }: { trigger: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>();
 
-  const colors = ["#fbbf24", "#fcd34d", "#f59e0b", "#fb7185", "#c084fc"];
-
-  const createParticles = () => {
-    const burstCount = 1000; // Efficient burst that looks massive
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-
-    for (let i = 0; i < burstCount; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 15 + 5;
-      particlesRef.current.push({
-        x: centerX,
-        y: centerY,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: Math.random() * 4 + 2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: 1,
-        life: 1.0,
-      });
-    }
-  };
-
   useEffect(() => {
+    const createBurst = () => {
+      const burstCount = 1000;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      for (let i = 0; i < burstCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 15 + 5;
+        particlesRef.current.push({
+          x: centerX,
+          y: centerY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: Math.random() * 4 + 2,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          opacity: 1,
+          life: 1.0,
+        });
+      }
+    };
+
     if (trigger) {
-      createParticles();
-      // Repeat a few times to simulate even more
-      setTimeout(createParticles, 200);
-      setTimeout(createParticles, 400);
+      createBurst();
+      setTimeout(createBurst, 200);
+      setTimeout(createBurst, 400);
     }
   }, [trigger]);
 
@@ -83,12 +82,10 @@ export default function SmileBurst({ trigger }: { trigger: boolean }) {
         ctx.globalAlpha = p.opacity;
         ctx.fillStyle = p.color;
         
-        // Draw a smile/circle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Very small detail to make it look like a smile (only for larger ones)
         if (p.size > 3) {
             ctx.strokeStyle = "rgba(0,0,0,0.5)";
             ctx.lineWidth = 1;

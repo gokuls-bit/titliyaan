@@ -18,7 +18,7 @@ export default function MusicPlayer() {
           setIsPlaying(true);
           setHasStarted(true);
         }
-      } catch (err) {
+      } catch {
         console.log("Autoplay blocked, waiting for user interaction");
       }
     };
