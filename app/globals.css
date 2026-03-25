@@ -1,32 +1,188 @@
- @import "tailwindcss";
+/* ================================
+   Tailwind Core
+================================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ================================
+   Root Theme Variables
+================================ */
 :root {
+  /* Colors */
   --foreground-rgb: 74, 74, 74;
   --background-start-rgb: 253, 242, 248;
   --background-end-rgb: 236, 254, 255;
+
+  /* Brand Colors */
+  --primary: 236, 72, 153;   /* pink-500 */
+  --secondary: 56, 189, 248; /* sky-400 */
+
+  /* UI */
+  --radius: 1rem;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  cursor: default;
-  -webkit-tap-highlight-color: transparent;
-}
-
-@layer base {
-  html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 229, 231, 235;
+    --background-start-rgb: 15, 23, 42;
+    --background-end-rgb: 2, 6, 23;
   }
 }
 
-/* Custom selection color */
+/* ================================
+   Base Styles
+================================ */
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply min-h-screen antialiased;
+    color: rgb(var(--foreground-rgb));
+    background:
+      linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      ),
+      rgb(var(--background-start-rgb));
+
+    cursor: default;
+    -webkit-tap-highlight-color: transparent;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* ================================
+   Typography
+================================ */
+@layer base {
+  h1 {
+    @apply text-4xl md:text-5xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-semibold;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed text-base;
+  }
+}
+
+/* ================================
+   Custom Components
+================================ */
+@layer components {
+  /* Glass Card */
+  .glass {
+    @apply backdrop-blur-xl bg-white/30 border border-white/20 shadow-lg;
+    border-radius: var(--radius);
+  }
+
+  /* Button Primary */
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-medium text-white transition-all duration-300;
+    background: linear-gradient(
+      to right,
+      rgb(var(--primary)),
+      rgb(var(--secondary))
+    );
+  }
+
+  .btn-primary:hover {
+    @apply scale-105 shadow-xl;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 md:px-6 lg:px-8;
+  }
+}
+
+/* ================================
+   Utilities
+================================ */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(
+      to right,
+      rgb(var(--primary)),
+      rgb(var(--secondary))
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .border-gradient {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(to right, pink, cyan) border-box;
+  }
+}
+
+/* ================================
+   Selection + Scrollbar
+================================ */
+
+/* Text Selection */
 ::selection {
   background-color: rgba(249, 168, 212, 0.3);
-  color: #4a4a4a;
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Scrollbar (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--primary)),
+    rgb(var(--secondary))
+  );
+  border-radius: 999px;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--primary)) transparent;
+}
+
+/* ================================
+   Animations
+================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
 }
